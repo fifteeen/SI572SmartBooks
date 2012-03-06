@@ -25,4 +25,6 @@ INSERT users(email, password, username)
 VALUES ("firstemail@gmail.com", "123456", "Adam"),
        ("secondemail@gmail.com", "78910", "Eva");
 
+-- below from Daodao: create Book Table
+CREATE TABLE Book(id INT UNSIGNED NOT NULL AUTO_INCREMENT KEY, name VARCHAR(128), ISBN INTEGER, year INTEGER, edition INTEGER, price FLOAT, quantity INTEGER, description TEXT, author VARCHAR(128), course_id INTEGER);
 
