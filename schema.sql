@@ -48,7 +48,7 @@ VALUES ("1","daodao@umich.edu", "12345"),
 --create table shoppingcart
 create table shoppingcart(id int unsigned not null auto_increment key,quantity integer,checkout bool,book_id integer,customer_id integer);
 INSERT shoppingcart(id, quantity, checkout, book_id, customer_id)
-VALUES("1","2","0","1","1")
+VALUES("1","2","0","1","1"),
       ("2","1","0","2","2");
 
 
