@@ -11,4 +11,3 @@
     mysql_select_db(DB_NAME) or 
         die("ERROR: Fail to access database");
 ?>
-
