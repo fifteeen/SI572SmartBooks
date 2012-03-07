@@ -1,6 +1,6 @@
 <?php
 require_once "db.php";
-session_start();
+SESSION_START();
 if ( isset($_SESSION['error']) ) 
 {
     echo '<p style="color:red">'.$_SESSION['error']."</p>\n";
@@ -13,7 +13,7 @@ if ( isset($_SESSION['succ']) )
 }
 
 echo '<table border="1">'."\n";
-$result = mysql_query("SELECT name, price, author, description FROM Book");
+$result = mysql_query("SELECT name, price, authorln, authorfn, description FROM book");
 echo "<tr><td>Title</td><td>Price</td><td>Author</td><td>Description</td></tr>";
 while ( $row = mysql_fetch_row($result) ) {
     echo "<tr><td>";
@@ -21,20 +21,11 @@ while ( $row = mysql_fetch_row($result) ) {
     echo("</td><td> $");
     echo(htmlentities($row[1]));
     echo("</td><td>");
-    echo(htmlentities($row[2]));
+    echo(htmlentities($row[2])." ".htmlentities($row[3]));
     echo("</td><td>");
-    echo(htmlentities($row[3]));
+    echo(htmlentities($row[4]));
     echo("</td><td>\n");
-    echo('<a href="bookInfo.php?id='.htmlentities($row[4]).'">Open</a>');
+    echo('<a href="bookInfo.php?id='.htmlentities($row[5]).'">Open</a>');
     echo("</td></tr>\n");
 }
 ?>
-<HTML><HEAD><TITLE>Smart Bookstore</TITLE></HEAD>
-<H1><CENTER>Online Textbook Store</CENTER>
-</table>
-<br>
-
-<a href="login.php">Login</a>
-<pre>                        
-<a href="login.php">Sign up</a>
-</pre>
