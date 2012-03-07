@@ -50,7 +50,7 @@
 			// Suspend further execution of this page and wait for redirect
 					// Various checks of entered values
 		}		
-				
+
 		//If submit for sign up
 		if (isset($_POST['newemail']) && isset($_POST['newpassword'])&& isset($_POST['newpassword2']))
 		{
@@ -67,7 +67,7 @@
 				// Value for model is an empty string
 				// Set error message to display in index page
 				echo("Sign Up Error: password is required. ");
-				//$_SESSION[¡®sesError¡¯]="Sign Up Error: password is required. "
+				//$_SESSION[Â¡Â®sesErrorÂ¡Â¯]="Sign Up Error: password is required. "
 			elseif ( empty($newpassword2) )
 				// Value for model is an empty string
 				// Set error message to display in index page
@@ -101,66 +101,3 @@
         return;
     }
 ?>
-<html>
-    <head>
-        <title>Login/Signup</title>
-    </head>
-    <body>
-        <h1>If you are a returning customer</h1>
-        <form method="post">
-            <table border="0">
-                <tr>
-                    <td align="right">Email</td>
-                    <td>:</td>
-                    <td><input type="text" name="email"></td>
-                </tr>
-                <tr>
-                    <td align="right">password</td>
-                    <td>:</td>
-                    <td><input type="text" name="password"></td>
-                </tr>
-                <tr>
-                    <td colspan="3" align="center">
-                        <input type="submit" value="Log in"/>
-                        &nbsp;&nbsp;
-                        <a href="index.php">Cancel</a>
-                    </td>
-                </tr>
-            </table>
-        </form>
-		        <h1>If you are a new customer</h1>
-        <form method="post">
-            <table border="0">
-                <tr>
-                    <td align="right">Email</td>
-                    <td>:</td>
-                    <td><input type="text" name="newemail"></td>
-                </tr>
-                <tr>
-                    <td align="right">password</td>
-                    <td>:</td>
-                    <td><input type="text" name="newpassword"></td>
-                </tr>
-				<tr>
-                    <td align="right">confirm password</td>
-                    <td>:</td>
-                    <td><input type="text" name="newpassword2"></td>
-                </tr>
-				<tr>
-                    <td align="right">User name (optional)</td>
-                    <td>:</td>
-                    <td><input type="text" name="username"></td>
-                </tr>
-                <tr>
-                    <td colspan="3" align="center">
-                        <input type="submit" value="Sign up"/>
-                        &nbsp;&nbsp;
-                        <a href="index.php">Cancel</a>
-                    </td>
-                </tr>
-            </table>
-        </form>
-
-    </body>
-</html>
-
