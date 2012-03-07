@@ -35,7 +35,7 @@ VALUES ("1", "Calculus", "000001", "1998", "3", "99.00", "3", "Fundamentals of C
 create table course(id INT UNSIGNED NOT NULL AUTO_INCREMENT KEY, name varchar(128), description text(1024), num integer, term varchar(128));
 INSERT course (id, name, description, num, term)
 VALUES ("1", "Chinese History", "a 5000 years long history, what a long and difficult class, tons of names to remember", "544", "Fall 2011"),
-      （"2", "Caculus III", "fundamentals of differential equations", "323", "Winter 2012");
+      ("2", "Caculus III", "fundamentals of differential equations", "323", "Winter 2012");
 
 -- create table costomer
 create table customer(id int unsigned not null auto_increment key,email varchar(128),password varchar(128));
