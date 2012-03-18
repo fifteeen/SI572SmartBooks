@@ -14,16 +14,16 @@ CREATE TABLE users (
     id      INTEGER         NOT NULL    AUTO_INCREMENT,
     email    VARCHAR(96)     NOT NULL,
     password   VARCHAR(96)     NOT NULL,
-    username    VARCHAR(96)         NOT NULL,
-  
+    username    VARCHAR(96) ,
+	isAdmin     INTEGER     NOT NULL,
     PRIMARY KEY (id)
 ) ENGINE=InnoDB; 
 
 
 -- Insert initial data
-INSERT users(email, password, username)
-VALUES ("firstemail@gmail.com", "123456", "Adam"),
-       ("secondemail@gmail.com", "78910", "Eva");
+INSERT users(email, password, username, isAdmin)
+VALUES ("firstemail@gmail.com", "123456", "Adam","1"),
+       ("secondemail@gmail.com", "78910", "Eva", "0");
 
 -- below from Daodao: create Book Table
 CREATE TABLE book(id INT UNSIGNED NOT NULL AUTO_INCREMENT KEY, name VARCHAR(128), ISBN INTEGER, year INTEGER, edition INTEGER, price FLOAT, quantity INTEGER, description TEXT, authorln VARCHAR(128), authorfn VARCHAR(128), course_id INTEGER);
@@ -45,7 +45,7 @@ VALUES ("1","daodao@umich.edu", "12345"),
       ("3","huilan@umich.edu","00000");
 
 
---create table shoppingcart
+-- create table shoppingcart
 create table shoppingcart(id int unsigned not null auto_increment key,quantity integer,checkout bool,book_id integer,customer_id integer);
 INSERT shoppingcart(id, quantity, checkout, book_id, customer_id)
 VALUES("1","2","0","1","1"),
