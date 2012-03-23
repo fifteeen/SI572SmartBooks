@@ -10,7 +10,7 @@ if (isset($_POST['logout']))
 {
 	echo "fefefegf";
 	session_destroy();
-	header('location: index.php');
+	header('location:index.php');
 	return;
 }
 echo $_SESSION['name']. " Are you sure you want to log out? \n";

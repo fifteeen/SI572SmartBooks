@@ -1,35 +1,7 @@
 body {
 	text-align: justify;
 	font-family: Arial, Helvetica, sans-serif;
-	font-size: 13px;
-}
-
-h1, h2, h3 {
-
-}
-
-h1 {
-
-}
-
-h2 {
-
-}
-
-h3 {
-
-}
-
-p, ul, ol {
-	margin-bottom: 20px;
-	line-height: 2em;
-}
-
-p {
-}
-
-blockquote {
-
+	font-size: 14px;
 }
 
 ul, ol, li {
@@ -38,50 +10,71 @@ ul, ol, li {
 	list-style: none;
 }
 
-a {
-
-}
 
 a:hover {
 	text-decoration: none;
 	color: #838383;
 }
 
+#container{
+    width:1000px;
+    margin:0 auto;
+}
+
 #header{
-    background-color:#555;
-    width:1200px;
-    height:240px;
-    margin:auto;
+    width:1000px;
+    height:160px;
+    background:url('banner.jpg') no-repeat;
+    background-size:1000px 160px;
 }
 
 #header a{
-    font-size:22px;
-    font-weight:bold;
-    color:white;
+	margin:0;
+	margin-top:5px;
+	margin-left:10px;
+	width:50px;
+	height:20px;
+	display:block;
+	position:absolute;
+	/*
+		absolute changes the position of element relative to its first parent
+	*/
+    font-size:18px;
+    color:#8B0000;
     text-decoration: none;
 }
 
 #header ul{
-    position:relative;
-    padding-top:0px;
+    margin-top:125px;
+    margin-left:35px;
+	position:absolute;
 }
 
 #header ul li{
-    background-color:#bbb;
-    display:inline;
-    padding:10px;
-    text-decoration: none;
+    background-color:#DCDCDC;
+	padding:0;
+	width:70px;
+	height:30px;
 }
     
 #content {
     background-color:#eee;
-    width:1200px;
-    height:500px;
-    margin:auto;
+    width:1000px;
 }
-
-#content a{
-    color:black;
+#toolbar ul{
+    margin-top: 0px;
+    position: relative;
+    padding-top: 1px;
+}
+#toolbar ul li{
+    background-color:#DCDCDC;
+    width: 80px;
+    height: 15px;
+    text-decoration: none;
+    text-align: center;
+}
+#toolbar a{
+    color:#8B0000;
     font-size:16px;
 }
 
@@ -102,14 +95,51 @@ a:hover {
 
 #content ul li{
     display:inline;
-    background-color:#aaa;
-    padding:10px;
+    background-color:#DCDCDC;
+    padding:1px;
+}
+#booklist{
+	width:1000px;
+	height:1000px;
+	border-color:black;
+	border-width:2px;
 }
 
+.book img{
+float: left;
+width: 100px;
+height:160px;
+margin:5px;
+
+}
+
+.book img_2{
+float: left;
+width: 200px;
+height:320px;
+margin:50px;
+}
+
+.book info{
+float: left;
+margin-left: 280px;
+}
+
+.book info_2{
+width: 1000px;
+margin-left: 280px;
+}
+
+.book{
+    background-color:white;
+    margin:20px;
+	float:left;
+	width:460px;
+}
+.book_info{
+	float: left:
+	margin-left: 150px;
+}
 #footer{
     text-align:center;
 }
-
-
-
-

@@ -29,13 +29,19 @@ VALUES ("firstemail@gmail.com", "123456", "Adam","1"),
 CREATE TABLE book(id INT UNSIGNED NOT NULL AUTO_INCREMENT KEY, name VARCHAR(128), ISBN INTEGER, year INTEGER, edition INTEGER, price FLOAT, quantity INTEGER, description TEXT, authorln VARCHAR(128), authorfn VARCHAR(128), course_id INTEGER);
 INSERT book (id, name, ISBN, year, edition, price, quantity, description, authorln, authorfn, course_id)
 VALUES ("1", "Calculus", "000001", "1998", "3", "99.00", "3", "Fundamentals of Caculus I, II, and III", "Wolf", "Dick", "323"),
-       ("2", "History of China", "000345", "2010", "11", "34.56", "12", "A throughout introduction of Chinese history from Qin dynasty to Qing dynasty", "Mao", "Zedong", "544");
+       ("2", "History of China", "000345", "2010", "11", "34.56", "12", "A throughout introduction of Chinese history from Qin dynasty to Qing dynasty", "Mao", "Zedong", "544"),
+       ("3", "Professional C++", "007834", "2003","7", "138.33", "100","A book as the most comprehensive reference of C++", "Guys","Crazy", "450"),
+      ("4", "Choice Architecture", "384993", "2011", "2", "32.99", "30", "Introduction of decision making process", "Cooper","Erin","617"),
+      ("5", "Medival Art: Renessace Time", "999999", "1998", "10", "168.00", "35", "A history that go through most famous work in Renancess time", "Vendi","Leonado","307");
 
 -- below from Yanqi: create table course
 create table course(id INT UNSIGNED NOT NULL AUTO_INCREMENT KEY, name varchar(128), description text(1024), num integer, term varchar(128));
 INSERT course (id, name, description, num, term)
 VALUES ("1", "Chinese History", "a 5000 years long history, what a long and difficult class, tons of names to remember", "544", "Fall 2011"),
-      ("2", "Caculus III", "fundamentals of differential equations", "323", "Winter 2012");
+      ("2", "Caculus III", "fundamentals of differential equations", "323", "Winter 2012"),
+      ("3", "Professional C++", "A book as the most comprehensive reference of C++", "450", "Fall 2012"),
+      ("4", "Choice Architecture", "Introduction of decision making process", "617", "Winter 2012"),
+      ("5", "Medival Art: Renessace Time", "A history that go through most famous work in Renancess time", "307", "Summer 2012");
 
 -- create table costomer
 create table customer(id int unsigned not null auto_increment key,email varchar(128),password varchar(128));

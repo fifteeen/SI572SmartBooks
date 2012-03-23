@@ -11,21 +11,23 @@ require("login2.php");
         <link type="text/css" rel="stylesheet" href="main.css">
     </head>
     <body>
+      <div id="container">
         <div id="header">
-            <img src="banner.jpg" width="1200" height="200">
             <ul>
-                <li><a href="index.php">Home</a></li>
+              <li><a href="index.php">Home</a></li>
             </ul>
-        </div>
+        </div><!-- end header -->
         <div id="content">
-            <ul>
-                <li><a href="login.php" class="selected">Login/Signup</a></li>
-                <li><a href="logout.php">Logout</a></li>
-            </ul>
-            <form method="get" action="">
-                <input type="text" id="search-text" name="s" value="" />
-                <input type="submit" id="search-submit" value="Search" />
-            </form>
+        	<div id="toolbar">
+            	<ul>
+                	<li><a href="login.php" class="selected">Login/Signup</a></li>
+                	<!--<li><a href="logout.php">Logout</a></li>-->
+           	 	</ul>
+            	<!--<form method="get" action="">
+                	<input type="text" id="search-text" name="s" value="" />
+                	<input type="submit" id="search-submit" value="Search" />
+            	</form>-->
+            </div>
 				<h1>If you are a returning customer</h1>
         <form method="post">
             <table border="0">
