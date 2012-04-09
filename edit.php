@@ -1,33 +1,32 @@
-<html>
-    <head>
-        <title>Shopping Cart</title>
-        <link type="text/css" rel="stylesheet" href="main.css">
-    </head>
-    <body>
-        <div id="header">
-            <img src="banner.jpg" width="1200" height="200">
-            <ul>
-                <li><a href="index.htm">Home</a></li>
-            </ul>
-        </div>
-        <div id="content">
-            <ul>
-                <li><a href="logout.htm">Logout</a></li>
-                <li><a href="checkout.htm">Checkout</a></li>
-            </ul>
-            <h1>My shopping Cart</h1>
-            <form method="get" action="">
-                <input type="text" id="search-text" name="s" value="" />
-                <input type="submit" id="search-submit" value="Search" />
-            </form>
 <?php
 require_once "db.php";
 session_start();
+?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" 
+   "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+    <head>
+        <title>Book Information</title> 
+        <link type="text/css" rel="stylesheet" href="main.css">
+    </head>
+    <body>
+      <div id="container">
+        <div id="header">
+            <ul>
+              <li><a href="index.php">Home</a></li>
+            </ul>
+        </div><!-- end header -->
+        <div id="content">
+            <ul>
+                <li><a href="shoppingcart.php">My Shopping Cart</a></li>
+                <li><a href="logout.php">Logout</a></li>
+            </ul>
+            <h1>Edit Items in My Shopping Cart</h1>
+<?php
 if ( isset($_POST['quantity'])) {
     $q = mysql_real_escape_string($_POST['quantity']);
     $id = mysql_real_escape_string($_POST['id']);
         if (is_numeric($q)){
-        
     $sql = "UPDATE shoppingcart SET quantity='$q' WHERE id='$id'"; 
     mysql_query($sql);
     $_SESSION['success'] = 'Shopping item information updated';
@@ -66,8 +65,8 @@ echo <<< _END
 </form>
 _END
 ?>
-        <p><a href="add.php">Continue Shopping</a> <a href="checkout.php">Check Out</a></p>
-        </div>
+         <p><a href="index.php"><input type="submit" value="Continue Shopping"/></a><a href="checkout.php"><input type="submit" value="Check out"/></a></p>
+        </div><!-- end content -->
         
         <div id="footer">
             <p>Copyright &copy 2012 SI572BOOKSTOREGROUP. All Rights Reserved.</p>

@@ -16,6 +16,25 @@ a:hover {
 	color: #838383;
 }
 
+h1{
+    margin-left:60px;
+}
+h2{
+    margin-left:60px;
+}
+h3{
+    margin-left:60px;
+}
+p{
+    margin-left:60px;
+}
+
+
+table{
+    margin-left:60px;
+}
+
+
 #container{
     width:1000px;
     margin:0 auto;
@@ -61,10 +80,16 @@ a:hover {
     background-color:#eee;
     width:1000px;
 }
+
+#toolbar{
+    margin-left:30px;
+    margin-right:30px;
+}
+
 #toolbar ul{
     margin-top: 0px;
     position: relative;
-    padding-top: 1px;
+    padding-top: 20px;
 }
 #toolbar ul li{
     background-color:#DCDCDC;
@@ -76,6 +101,21 @@ a:hover {
 #toolbar a{
     color:#8B0000;
     font-size:16px;
+}
+
+#search-text{
+    margin:20px;
+    width:300px;
+    height:20px;
+}
+
+#search-submit{
+    width:120px;
+    font-size:30px;
+}
+
+#delete_submit{
+	margin-left:60px;
 }
 
 #content a.selected{
@@ -107,26 +147,13 @@ a:hover {
 
 .book img{
 float: left;
-width: 100px;
-height:160px;
+width: 150px;
+height:200px;
 margin:5px;
 
 }
-
-.book img_2{
-float: left;
-width: 200px;
-height:320px;
-margin:50px;
-}
-
 .book info{
 float: left;
-margin-left: 280px;
-}
-
-.book info_2{
-width: 1000px;
 margin-left: 280px;
 }
 

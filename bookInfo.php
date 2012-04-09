@@ -32,24 +32,44 @@ if ( isset($_SESSION['name']) )
             </ul>
         </div><!-- end header -->
         <div id="content">
-			<div id="toolbar">
-				<ul>
-				  <li><a href="shoppingcart.php">Shopping Cart</a></li>
-				  <li><a href="logout.php">Log out</a></li>
-				</ul>
-				<form method="get" action="">
-				  <input type="text" id="search-text" name="s" value="" />
-				  <input type="submit" id="search-submit" value="Search" />
-				</form>
-			</div><!-- end toolbar -->
+		<?php
+		if ( isset($_SESSION['name']) ) 
+		{
+			echo '<div id="toolbar">
+                 	<ul>
+						<li><a href="shoppingcart.php">My Shopping Cart</a></li>
+						<li><a href="logout.php">Logout</a></li>
+					</ul>
+				</div><!-- end toolbar -->';
+			//echo '<p style="color:green">'."Hi ". $_SESSION['name'].", you're logged in. If you want to log in as another customer, please log out first. \n"."</p>";
+			if ($_SESSION['isAdmin']==1) 
+			{
+				echo "<li><a href='admin.php'>Go to administrator's page</a></li>";
+			}
+		}
+		else
+		{
+			echo '<div id="toolbar">
+					<ul>
+						<li><a href="login.php">Log in/Signup</a></li>
+					</ul>
+						<form method="get" action="">
+							<input type="text" id="search-text" name="s" value="" />
+							<input type="submit" id="search-submit" value="Search" />
+						</form>
+							</div><!-- end toolbar -->';
+		}
+		?>
 			<div id="booklist">
            			<?php
            				$id = mysql_real_escape_string($_GET['id']);
-						$result = mysql_query("SELECT name, price, authorln, authorfn, ISBN, year, edition, course_id, description,id FROM book WHERE id = $id");						
+						$result = mysql_query("SELECT name, price, authorln, authorfn, ISBN, year, edition, course_id, description,picture, id FROM book WHERE id = $id");						
 						if ( $row = mysql_fetch_row($result) ) {
 							echo('<div class="book">');
 							echo('<div class="img_2">');
-							echo('<img src=2.jpg  alt="Book1" width="100" height="160" />');
+							echo('<img src= ');
+							echo (htmlentities($row[9]));
+							echo (' alt="Book1" width="250" height="290" />');
 							echo('</div><div class="info_2">');
 							echo('<p class="book_info"> Title:   ');
 							echo(htmlentities($row[0]));
@@ -68,7 +88,8 @@ if ( isset($_SESSION['name']) )
 		       		 		echo('</p><p> Description:  ');
 							echo(htmlentities($row[8]));
 							echo('</p><p>');
-							echo('<a href="shoppingcart.php?id='.htmlentities($row[9]).'">Add to shopping cart</a>');
+							echo('<a href="index.php">Go Back</a>'. "\n");
+							echo('<a href="add.php?id='.htmlentities($row[10]).'">Add to shopping cart</a>');
 							echo('</p>');
 							echo('</div>');
 							echo('</div>');

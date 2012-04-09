@@ -9,7 +9,7 @@
 		echo $_SESSION['error'];
 		unset($_SESSION['error']);
 	}
-	
+
 	//if a user already logged in, show the message. 
 	if (isset($_SESSION['name']))
 	{
@@ -63,11 +63,12 @@
 					//If password matches, log in successful
 					elseif ($pwd[0]==$password)
 					{
-						$sql = "SELECT username, isAdmin, email FROM users WHERE email= '$email'";
+						$sql = "SELECT id, username, isAdmin, email FROM users WHERE email= '$email'";
 						$result = mysql_query($sql);
 						$_SESSION['name'] = mysql_result($result,0,'username');
 						$_SESSION['email']= mysql_result($result,0,'email');
 						$_SESSION['isAdmin']= mysql_result($result,0,'isAdmin');
+						$_SESSION['user_id']= mysql_result($result,0,'id');
 						unset($_SESSION['error']);
 						// Login complete, redirect to index page
 						header( 'Location: index.php' );
@@ -127,7 +128,7 @@
 					// Redirect to login page
 					header( 'Location: login.php' );
 				}				
-	
+
 			else 
 			{
 				//If email and password is not empty, then see if email exist and password matches

@@ -50,11 +50,20 @@ VALUES ("1","daodao@umich.edu", "12345"),
       ("2","yanqi@umich.edu", "54321"),
       ("3","huilan@umich.edu","00000");
 
-
 -- create table shoppingcart
 create table shoppingcart(id int unsigned not null auto_increment key,quantity integer,checkout bool,book_id integer,customer_id integer);
 INSERT shoppingcart(id, quantity, checkout, book_id, customer_id)
 VALUES("1","2","0","1","1"),
       ("2","1","0","2","2");
+      
+-- drop table address_book
+drop table address_book;
 
+--create table addressbook
+create table addressbook(id int unsigned not null auto_increment key, customerln varchar(128), customerfn varchar(128),street varchar(128),city varchar(128), state varchar(128), zip integer, customer_id integer);
 
+--create table orders
+create table orders(id int unsigned not null auto_increment key, addressbook_id integer);
+
+--create table orderitem
+create table orderitem(id int unsigned not null auto_increment key, quantity integer, orders_id integer, book_id integer);

@@ -1,8 +1,6 @@
 <?php
 require("login2.php");
-
 ?>
-
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" 
        "http://www.w3.org/TR/html4/strict.dtd">
 <html>
@@ -14,20 +12,18 @@ require("login2.php");
       <div id="container">
         <div id="header">
             <ul>
-              <li><a href="index.php">Home</a></li>
+                <li><a href="index.php">Home</a></li>
             </ul>
-        </div><!-- end header -->
+        </div>
         <div id="content">
-        	<div id="toolbar">
-            	<ul>
-                	<li><a href="login.php" class="selected">Login/Signup</a></li>
-                	<!--<li><a href="logout.php">Logout</a></li>-->
-           	 	</ul>
-            	<!--<form method="get" action="">
-                	<input type="text" id="search-text" name="s" value="" />
-                	<input type="submit" id="search-submit" value="Search" />
-            	</form>-->
-            </div>
+            <ul>
+                <li><a href="login.php" class="selected">Login/Signup</a></li>
+                <li><a href="logout.php">Logout</a></li>
+            </ul>
+            <form method="get" action="">
+                <input type="text" id="search-text" name="s" value="" />
+                <input type="submit" id="search-submit" value="Search" />
+            </form>
 				<h1>If you are a returning customer</h1>
         <form method="post">
             <table border="0">
@@ -89,5 +85,6 @@ require("login2.php");
         <div id="footer">
             <p>Copyright &copy 2012 SI572BOOKSTOREGROUP. All Rights Reserved.</p>
         </div>
+      </div>
     </body>
 </html>
