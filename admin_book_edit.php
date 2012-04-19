@@ -3,13 +3,16 @@ require_once "db.php";
 session_start();
 if (isset($_SESSION['error']))
 {
-	echo $_SESSION['error'];
+	$error=$_SESSION['error'];
 	unset($_SESSION['error']);
 }
 if (isset($_SESSION['success']))
 {
+	$success=$_SESSION['success'];
 	unset($_SESSION['success']);
 }
+
+//prevent unauthorized access from unlogged users and non administrators
 if (!isset($_SESSION['name']))
 {
 	header ("Location:index.php");
@@ -18,12 +21,13 @@ if ($_SESSION['isAdmin']==0)
 {
 	header ("Location:index.php");
 }
-
+//If cannot get id, store error message and return to admin_book main page
 if ( !isset($_GET['id']) ) {
     $_SESSION['error'] = 'Missing value for id';
     header('Location: admin_book.php');
     return;
 }
+//if id is given, check whether the book exists, if it exists, then store the book id
 $id = mysql_real_escape_string($_GET['id']);
 $result = mysql_query("SELECT * FROM book WHERE id='$id'");
 $row = mysql_fetch_row($result);
@@ -33,7 +37,7 @@ if ( $row == FALSE ) {
     return;
 }
 $id = htmlentities($row[0]);
-
+//If the form is set, then update the book table with the corresponding book id
 if ( isset($_POST['name']) && isset($_POST['isbn']) && isset($_POST['year'])
      && isset($_POST['edition']) && isset($_POST['price']) && isset($_POST['quantity'])
 	 && isset($_POST['description']) && isset($_POST['authorln']) && isset($_POST['authorfn'])
@@ -49,9 +53,13 @@ if ( isset($_POST['name']) && isset($_POST['isbn']) && isset($_POST['year'])
 	    $al = mysql_real_escape_string($_POST['authorln']);
 	    $af = mysql_real_escape_string($_POST['authorfn']);
 	    $ci = mysql_real_escape_string($_POST['course_id']);
+	    $pic = mysql_real_escape_string($_POST['pic']);
+	    $fullname = mysql_real_escape_string($_POST['fullname']);
+		//check for input errors, if correct update the book with the corresponding id
 		if (is_numeric($q) && is_numeric($p) && is_numeric($y))
 		{
-			$sql = "UPDATE book SET name='$n', ISBN='$i', year= '$y' , edition='$e', price='$p', quantity= '$q', description='$d', authorln='$al', authorfn='$af', course_id='$ci' WHERE id='$id' "; 
+			$sql = "UPDATE book SET name='$n', ISBN='$i', year= '$y' , edition='$e', price='$p', quantity= '$q', description='$d', authorln='$al', 
+			authorfn='$af', course_id='$ci', picture='$pic', fullname='$fullname' WHERE id='$id' "; 
 			mysql_query($sql);
 			$_SESSION['success'] = "Book added. ";
 			header('Location: admin_book.php');
@@ -98,11 +106,9 @@ if ( isset($_POST['name']) && isset($_POST['isbn']) && isset($_POST['year'])
             <ul>
                 <li><a href="logout.php">Logout</a></li>
             </ul>
+			<p style="color:green"><?php if (isset($success)) echo $success; ?></p>
+			<p style="color:red"><?php if (isset($error)) echo $error; ?></p>
             <h1>Edit a book</h1>
-            <form method="get" action="">
-                <input type="text" id="search-text" name="s" value="" />
-                <input type="submit" id="search-submit" value="Search" />
-            </form>
 		<form method="post">
 			<p>Book Name:
 			<input type="text" name="name"></p>
@@ -124,6 +130,10 @@ if ( isset($_POST['name']) && isset($_POST['isbn']) && isset($_POST['year'])
 			<input type="text" name="authorfn"></p>
 			<p>Course ID:
 			<input type="text" name="course_id"></p>
+			<p>Picture:
+			<input type="text" name="pic"></p>
+			<p>Author full name:
+			<input type="text" name="fullname"></p>
 		<input type="hidden" name="id" value="$id">
 		<p><input type="submit" value="Update"/>
 		<a href="admin_book.php">Cancel</a></p>

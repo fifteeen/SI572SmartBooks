@@ -140,7 +140,7 @@ table{
 }
 #booklist{
 	width:1000px;
-	height:1000px;
+	height:1800px;
 	border-color:black;
 	border-width:2px;
 }
@@ -149,8 +149,10 @@ table{
 float: left;
 width: 150px;
 height:200px;
-margin:5px;
-
+margin-left:8px;
+margin-right:8px;
+margin-top:8px;
+margin-bottom:50px;
 }
 .book info{
 float: left;
@@ -162,6 +164,7 @@ margin-left: 280px;
     margin:20px;
 	float:left;
 	width:460px;
+	height:260px;
 }
 .book_info{
 	float: left:

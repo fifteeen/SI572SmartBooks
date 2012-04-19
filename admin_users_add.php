@@ -10,6 +10,8 @@ if (isset($_SESSION['success']))
 {
 	unset($_SESSION['success']);
 }
+//Prevent unauthorized access
+
 if (!isset($_SESSION['name']))
 {
 	header ("Location:index.php");
@@ -25,6 +27,7 @@ if ( isset($_POST['email']) && isset($_POST['password']) && isset($_POST['userna
    $p = mysql_real_escape_string($_POST['password']);
    $u = mysql_real_escape_string($_POST['username']);
    $i = mysql_real_escape_string($_POST['isAdmin']);
+	//Check for wrong input for the isAdmin field, if correct, insert a new user, else store error message and return to the admin_user_add.php page
    if (is_numeric($i))
    {
 		$sql = "INSERT INTO users (email, password, username, isAdmin) 
@@ -62,10 +65,6 @@ if ( isset($_POST['email']) && isset($_POST['password']) && isset($_POST['userna
             <ul>
                 <li><a href="logout.php">Logout</a></li>
             </ul>
-            <form method="get" action="">
-                <input type="text" id="search-text" name="s" value="" />
-                <input type="submit" id="search-submit" value="Search" />
-            </form>
             <h1>Add a new user</h1>
 		<form method="post">
 			<p>Email:

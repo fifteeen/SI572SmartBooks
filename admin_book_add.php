@@ -3,13 +3,15 @@ require_once "db.php";
 session_start();
 if (isset($_SESSION['error']))
 {
-	echo $_SESSION['error'];
+	$error=$_SESSION['error'];
 	unset($_SESSION['error']);
 }
 if (isset($_SESSION['success']))
 {
+	$success=$_SESSION['success'];
 	unset($_SESSION['success']);
 }
+//prevent unauthorized access from unlogged users and non administrators
 if (!isset($_SESSION['name']))
 {
 	header ("Location:index.php");
@@ -18,25 +20,28 @@ if ($_SESSION['isAdmin']==0)
 {
 	header ("Location:index.php");
 }
-
+//If the form has been submitted, update the table
 if ( isset($_POST['name']) && isset($_POST['isbn']) && isset($_POST['year'])
      && isset($_POST['edition']) && isset($_POST['price']) && isset($_POST['quantity'])
 	 && isset($_POST['description']) && isset($_POST['authorln']) && isset($_POST['authorfn'])
 	 && isset($_POST['course_id'])) {
-   $n = mysql_real_escape_string($_POST['name']);
-   $i = mysql_real_escape_string($_POST['isbn']);
-   $y = mysql_real_escape_string($_POST['year']);
-   $e = mysql_real_escape_string($_POST['edition']);
-   $p = mysql_real_escape_string($_POST['price']);
-   $q = mysql_real_escape_string($_POST['quantity']);
-   $d = mysql_real_escape_string($_POST['description']);
-   $al = mysql_real_escape_string($_POST['authorln']);
-   $af = mysql_real_escape_string($_POST['authorfn']);
-   $ci = mysql_real_escape_string($_POST['course_id']);
+	   $n = mysql_real_escape_string($_POST['name']);
+	   $i = mysql_real_escape_string($_POST['isbn']);
+	   $y = mysql_real_escape_string($_POST['year']);
+	   $e = mysql_real_escape_string($_POST['edition']);
+	   $p = mysql_real_escape_string($_POST['price']);
+	   $q = mysql_real_escape_string($_POST['quantity']);
+	   $d = mysql_real_escape_string($_POST['description']);
+	   $al = mysql_real_escape_string($_POST['authorln']);
+	   $af = mysql_real_escape_string($_POST['authorfn']);
+	   $ci = mysql_real_escape_string($_POST['course_id']);
+	   $pic = mysql_real_escape_string($_POST['pic']);
+	   $fullname = mysql_real_escape_string($_POST['fullname']);
+	//Check input errors, if correct, update, if not correct, store error message and return
    if (is_numeric($q) && is_numeric($p) && is_numeric($y))
 	{
-   $sql = "INSERT INTO book (name, ISBN, year, edition, price, quantity, description, authorln, authorfn, course_id) 
-              VALUES ('$n', '$i', '$y', '$e', '$p', '$q','$d', '$al', '$af','$ci')";
+   $sql = "INSERT INTO book (name, ISBN, year, edition, price, quantity, description, authorln, authorfn, course_id, picture, fullname) 
+              VALUES ('$n', '$i', '$y', '$e', '$p', '$q','$d', '$al', '$af','$ci','$pic','$fullname')";
    mysql_query($sql);
    $_SESSION['success'] = 'Book Added';
    header( 'Location: admin_book.php' ) ;
@@ -83,10 +88,8 @@ if ( isset($_POST['name']) && isset($_POST['isbn']) && isset($_POST['year'])
             <ul>
                 <li><a href="logout.php">Logout</a></li>
             </ul>
-            <form method="get" action="">
-                <input type="text" id="search-text" name="s" value="" />
-                <input type="submit" id="search-submit" value="Search" />
-            </form>
+			<p style="color:green"><?php if (isset($success)) echo $success; ?></p>
+			<p style="color:red"><?php if (isset($error)) echo $error; ?></p>
             <h1>Add a new book</h1>
 		<form method="post">
 			<p>Book Name:
@@ -109,6 +112,10 @@ if ( isset($_POST['name']) && isset($_POST['isbn']) && isset($_POST['year'])
 			<input type="text" name="authorfn"></p>
 			<p>Course ID:
 			<input type="text" name="course_id"></p>
+			<p>Picture:
+			<input type="text" name="pic"></p>
+			<p>Author full name:
+			<input type="text" name="fullname"></p>
 		<p><input type="submit" value="Add New"/></p>
 		<a href="admin_book.php">Cancel</a></p>
 		</form>

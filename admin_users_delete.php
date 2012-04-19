@@ -9,6 +9,8 @@ if (isset($_SESSION['success']))
 {
 		unset($_SESSION['success']);
 }
+
+//Prevent unauthorized access
 if (!isset($_SESSION['name']))
 {
 	header ("Location:index.php");
@@ -38,11 +40,8 @@ if ($_SESSION['isAdmin']==0)
                 <li><a href="logout.php">Logout</a></li>
             </ul>
             <h1>Delete a user</h1>
-            <form method="get" action="">
-                <input type="text" id="search-text" name="s" value="" />
-                <input type="submit" id="search-submit" value="Search" />
-            </form>
 <?php
+// Fetch the id from HTML post method, then delete it, then relocate back to admin_users.php main page
 if ( isset($_POST['delete']) && isset($_POST['id']) ) {
     $id = mysql_real_escape_string($_POST['id']);
     $sql = "DELETE FROM users WHERE id = $id";
@@ -51,11 +50,14 @@ if ( isset($_POST['delete']) && isset($_POST['id']) ) {
     header('Location: admin_users.php');
     return;
 }
+// If fail to get the id, store the error message, then relocate back to admin_users.php main page
 if ( ! isset($_GET['id']) ) {
     $_SESSION['error'] = 'Missing value for id';
     header('Location: admin_users.php');
     return;
 }
+
+//Get id from post, or store error message if id does not exist
 $id = mysql_real_escape_string($_GET['id']);
 $result = mysql_query("SELECT * FROM users WHERE id='$id' ");
 $row = mysql_fetch_row($result);

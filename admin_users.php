@@ -3,14 +3,15 @@ require_once "db.php";
 session_start();
 if (isset($_SESSION['error']))
 {
-	echo ($_SESSION['error']);
+	$error=$_SESSION['error'];
 	unset($_SESSION['error']);
 }
 if (isset($_SESSION['success']))
 {
-	echo ($_SESSION['success']);
+	$success=$_SESSION['success'];
 	unset($_SESSION['success']);
 }
+//Prevent unauthorized access
 if (!isset($_SESSION['name']))
 {
 	header ("Location:index.php");
@@ -39,13 +40,13 @@ if ($_SESSION['isAdmin']==0)
             <ul>
                 <li><a href="logout.php">Logout</a></li>
             </ul>
-            <form method="get" action="">
-                <input type="text" id="search-text" name="s" value="" />
-                <input type="submit" id="search-submit" value="Search" />
-            </form>
           </div><!-- end toolbar -->
+		  
         <h1>Order information</h1>
+        <p style="color:green"><?php if (isset($success)) echo $success; ?></p>
+        <p style="color:red"><?php if (isset($error)) echo $error; ?></p>
 <?php
+//select everything in the users table then print it out
 echo '<table border="1">'."\n";
 $result = mysql_query("SELECT * FROM users");
 echo "<tr><td>id</td><td>Email</td><td>Password</td><td>Username</td><td>Administrator</td><td>";

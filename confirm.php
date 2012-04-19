@@ -24,8 +24,11 @@ session_start();
                 <li><a href="logout.php">Logout</a></li>
             </ul>
 <?php
+//select the name of the customer
   $sql = "SELECT username FROM users WHERE id ='$id_user' ";
   $user_name = mysql_result(mysql_query($sql),0,'username');
+
+//display the confirmation message
   echo("<h1>Thank you.". $user_name."</h1>");
 ?>
             <h2>Your books have been already ordered. They will be shipped soon.</h2>

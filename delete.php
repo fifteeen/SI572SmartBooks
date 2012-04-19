@@ -15,16 +15,15 @@ if ( ! isset($_GET['id']) ) {
     header('Location: shoppingcart.php');
     return;
 }
-$id = mysql_real_escape_string($_GET['id']);
-$result = mysql_query("SELECT book.name,shoppingcart.id FROM book join shoppingcart on shoppingcart.id='$id' and shoppingcart.book_id=book.id");
-$row = mysql_fetch_row($result);
-if ( $row == FALSE ) {
-    $_SESSION['error'] = 'Bad value for id';
-    header('Location: shoppingcart.php');
-    return;
-}
 
-
+    $id = mysql_real_escape_string($_GET['id']);
+    $result = mysql_query("SELECT book.name,shoppingcart.id FROM book join shoppingcart on shoppingcart.id='$id' and shoppingcart.book_id=book.id");
+    $row = mysql_fetch_row($result);
+    if ( $row == FALSE ) {
+        $_SESSION['error'] = 'Bad value for id';
+        header('Location: shoppingcart.php');
+        return;
+    }
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" 
    "http://www.w3.org/TR/html4/strict.dtd">

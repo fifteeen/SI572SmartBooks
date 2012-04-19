@@ -3,7 +3,8 @@ require_once "db.php";
 SESSION_START();
 if (isset($_SESSION['error']))
 {
-		unset($_SESSION['error']);
+	$error=$_SESSION['error'];
+	unset($_SESSION['error']);
 }
 if (isset($_SESSION['success']))
 {
@@ -63,6 +64,7 @@ if (isset($_SESSION['success']))
 	      	</tr>
 		</form>
 	</div><!-- end toolbar -->
+	<p style="color:red"> <?php if (isset($error)) echo $error; ?></p>
 	<p style="color:green">Hi <?php echo($_SESSION['name']); ?>, you're logged in. If you want to log in as another customer, please log out first.</p>
 	<?php if ($_SESSION['isAdmin']==1) { ?>
 		<li><a href='admin.php'>Go to administrator's page</a></li>
@@ -103,7 +105,7 @@ if (isset($_SESSION['success']))
 				</form>
  </div><!-- end toolbar -->
 <?php } ?>
-
+<p style="color:red"> <?php if (isset($error)) echo $error; ?></p>
 <div id="booklist">
 <p>
 						

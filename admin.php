@@ -1,14 +1,20 @@
 <?php
 require_once "db.php";
 session_start();
+
+// Clear the error and success cookies
 if (isset($_SESSION['error']))
 {
+	$error=$_SESSION['error'];
 	unset($_SESSION['error']);
 }
 if (isset($_SESSION['success']))
 {
-		unset($_SESSION['success']);
+	$success=$_SESSION['success'];
+	unset($_SESSION['success']);
 }
+
+//Prevent unauthorized access to the page
 if (!isset($_SESSION['name']))
 {
 	header ("Location:index.php");
@@ -37,11 +43,9 @@ if ($_SESSION['isAdmin']==0)
             <ul>
                 <li><a href="logout.php">Logout</a></li>
             </ul>
-            <form method="get" action="">
-                <input type="text" id="search-text" name="s" value="" />
-                <input type="submit" id="search-submit" value="Search" />
-            </form>
           </div><!-- end toolbar -->
+        <p style="color:green"><?php if (isset($success)) echo $success; ?></p>
+        <p style="color:red"><?php if (isset($error)) echo $error; ?></p>
         <h1>View/Edit</h1>
              <li><a href="admin_book.php">Manage books</a></li>
 			 <li><a href="admin_order.php">Manage orders</a></li>

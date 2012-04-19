@@ -1,0 +1,9 @@
+
+4/11
+
+1. edit.php (过去的code本身有个变量混乱了，现在改过来，无论administrator还是customer都可以更新了)
+2. admin_book.php (加了图片)
+3. admin_book_edit.php (加图片和全名)
+4. schema 清空了shoppingcart table的一些实验数据
+5. admin_book_add.php (加图片和全名)
+6. search.php 修改了信息输出的位置

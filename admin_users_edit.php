@@ -63,7 +63,7 @@ if ( isset($_POST['email']) && isset($_POST['password']) && isset($_POST['userna
    "http://www.w3.org/TR/html4/strict.dtd">
 <html>
     <head>
-        <title>Book Information</title> 
+        <title>User Information</title> 
         <link type="text/css" rel="stylesheet" href="main.css">
     </head>
     <body>
@@ -77,11 +77,7 @@ if ( isset($_POST['email']) && isset($_POST['password']) && isset($_POST['userna
             <ul>
                 <li><a href="logout.php">Logout</a></li>
             </ul>
-            <h1>Edit a book</h1>
-            <form method="get" action="">
-                <input type="text" id="search-text" name="s" value="" />
-                <input type="submit" id="search-submit" value="Search" />
-            </form>
+            <h1>Edit a user</h1>
 		<form method="post">
 			<p>Email:
 			<input type="text" name="email"></p>

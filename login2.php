@@ -142,7 +142,11 @@
 					mysql_query($sql);
 					$_SESSION['email'] = $newemail;
 					$_SESSION['name']= $newusername;
+					$_SESSION['isAdmin']= 0;
 					$_SESSION['success']= "Congratulations! Your account has been created";
+					$sql = "SELECT id, username, isAdmin, email FROM users WHERE email= '$newemail'";
+					$result = mysql_query($sql);
+					$_SESSION['user_id']= mysql_result($result,0,'id');
 					// Redirect to index page
 					header( 'Location: index.php' );
 

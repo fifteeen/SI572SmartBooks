@@ -27,11 +27,12 @@ if ( isset($_POST['quantity'])) {
     $q = mysql_real_escape_string($_POST['quantity']);
     $id = mysql_real_escape_string($_POST['id']);
         if (is_numeric($q)){
-    $sql = "UPDATE shoppingcart SET quantity='$q' WHERE id='$id'"; 
-    mysql_query($sql);
-    $_SESSION['success'] = 'Shopping item information updated';
-    header('Location: shoppingcart.php');
-    return;}
+			$user_id=$_SESSION['user_id'];
+			$sql = "UPDATE shoppingcart SET quantity='$q' WHERE book_id='$id' and customer_id=$user_id"; 
+			mysql_query($sql);
+			$_SESSION['success'] ='Shopping item information updated';
+			header('Location: shoppingcart.php');
+			return;}
        else   
    {     $_SESSION['error']='Values for quantity should be numeric';
          header( 'Location: shoppingcart.php' ) ;
@@ -40,20 +41,20 @@ if ( isset($_POST['quantity'])) {
 }
 
 if ( ! isset($_GET['id']) ) {
-    $_SESSION['error'] = 'Missing value for id';
+    $_SESSION['error'] = 'Missing value for id'; //_GET['id'] is the id in shopping cart, NOT book_id
     header('Location: shoppingcart.php');
     return;
 }
-$id = mysql_real_escape_string($_GET['id']);
-$result = mysql_query("SELECT book.name, book.price, book.id, shoppingcart.quantity, shoppingcart.id FROM book join shoppingcart on book.id=shoppingcart.book_id");
+$shoppingcart_id = mysql_real_escape_string($_GET['id']);
+$result = mysql_query("SELECT * from shoppingcart WHERE id='$shoppingcart_id' ");
 $row = mysql_fetch_row($result);
 if ( $row == FALSE ) {
     $_SESSION['error'] = 'Bad value for id';
     header('Location: shoppingcart.php');
     return;
 }
-$q = htmlentities($row[3]);
-$id = htmlentities($row[4]);
+$q = htmlentities($row[1]);
+$id = htmlentities($row[3]); //id is book_id
 echo <<< _END
 <p>Edit Shopping Item</p>
 <form method="post">

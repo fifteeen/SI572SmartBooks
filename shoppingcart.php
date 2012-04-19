@@ -6,9 +6,13 @@ if ( isset($_SESSION['error']) ) {
     unset($_SESSION['error']);
 }
 if ( isset($_SESSION['success']) ) {
-    echo '<p style="color:green">'.$_SESSION['success']."</p>\n";
+	$success=$_SESSION['success'];
     unset($_SESSION['success']);
 }
+if ( !isset($_SESSION['name'])){
+	$_SESSION['error']= "To see your shopping cart or add books to your shopping cart, please log in first. ";
+	header( 'Location: index.php' );
+	}
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" 
    "http://www.w3.org/TR/html4/strict.dtd">
@@ -32,37 +36,40 @@ if ( isset($_SESSION['success']) ) {
           </div><!-- end toolbar -->
         <h1>My shopping Cart</h1>
 <?php
-$id_user = $_SESSION['user_id'];
-$sum = 0;
-echo '<table border="1">'."\n";
-$user_id=$_SESSION['user_id'];
-$result = mysql_query("SELECT book.name, book.price, book.id, shoppingcart.quantity, shoppingcart.id,  shoppingcart.customer_id FROM book join shoppingcart on book.id=shoppingcart.book_id AND customer_id=$user_id");
-echo "<tr><td>Name</td><td>Price</td><td>Quantity</td><td>Subtotal</td><td>Commands</td></tr>";
-while ( $row = mysql_fetch_row($result) ) {
-if (htmlentities($row[5]) == $id_user) {
-    echo "<tr><td>";
-    echo(htmlentities($row[0]));
-    echo("</td><td>");
-    echo(htmlentities($row[1]));
-    echo("</td><td>");
-    echo(htmlentities($row[3]));
-    echo("</td><td>");
-    echo(htmlentities($row[3])*htmlentities($row[1]));
-    echo("</td><td>");
-    echo('<a href="edit.php?id='.htmlentities($row[4]).'">Edit</a> / ');
-    echo('<a href="delete.php?id='.htmlentities($row[4]).'">Delete</a>');
-    echo("</td></tr>\n");
-    $sum = $sum + htmlentities($row[3])*htmlentities($row[1]);
-}
+    $id_user = $_SESSION['user_id'];
+    $user_id=$_SESSION['user_id'];
+    //define the variable for total price
+    $sum = 0;
+    echo '<table border="1">'."\n";
+    
+    //output the shoppingcart table when user_id equals
+    $result = mysql_query("SELECT book.name, book.price, book.id, shoppingcart.quantity, shoppingcart.id,  shoppingcart.customer_id FROM book join shoppingcart on book.id=shoppingcart.book_id AND customer_id=$user_id");
+    echo "<tr><td>Name</td><td>Price</td><td>Quantity</td><td>Subtotal</td><td>Commands</td></tr>";
+        while ( $row = mysql_fetch_row($result) ) {
+            if (htmlentities($row[5]) == $id_user) {
+                echo "<tr><td>";
+                echo(htmlentities($row[0]));
+                echo("</td><td>");
+                echo(htmlentities($row[1]));
+                echo("</td><td>");
+                echo(htmlentities($row[3]));
+                echo("</td><td>");
+                echo(htmlentities($row[3])*htmlentities($row[1]));
+                echo("</td><td>");
+                echo('<a href="edit.php?id='.htmlentities($row[4]).'">Edit</a> / ');
+                echo('<a href="delete.php?id='.htmlentities($row[4]).'">Delete</a>');
+                echo("</td></tr>\n");
+                $sum = $sum + htmlentities($row[3])*htmlentities($row[1]);
+            }
+            else continue;}
 
-else continue;}
-
-echo "<tr><td>Total</td><td>";
-echo $sum;
-echo "</td></tr>";
+    echo "<tr><td>Total</td><td>";
+    echo $sum;
+    echo "</td></tr>";
 
 ?>
-        <p><a href="index.php"><input type="submit" value="Continue Shopping"/></a><a href="checkout.php"><input type="submit" value="Check out"/></a></p>
+        <p style="color:green"><?php if (isset($success)) echo $success; ?></p>
+		<p><a href="index.php"><input type="submit" value="Continue Shopping"/></a><a href="checkout.php"><input type="submit" value="Check out"/></a></p>
 		</div><!-- end content -->	
         
 <!--        <div id="footer">

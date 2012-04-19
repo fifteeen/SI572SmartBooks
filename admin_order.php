@@ -39,37 +39,23 @@ if ($_SESSION['isAdmin']==0)
             <ul>
                 <li><a href="logout.php">Logout</a></li>
             </ul>
-            <form method="get" action="">
-                <input type="text" id="search-text" name="s" value="" />
-                <input type="submit" id="search-submit" value="Search" />
-            </form>
           </div><!-- end toolbar -->
-        <h1>Book information</h1>
+        <h1>Order information</h1>
 <?php
 echo '<table border="1">'."\n";
-$result = mysql_query("SELECT * FROM book");
-echo "<tr><td>id</td><td>Name</td><td>ISBN</td><td>Year</td><td>Edition</td><td>Price</td><td>Quantity</td><td>Description</td><td>Author</td><td>Course ID</td><td>Commands</td></tr>";
+$result = mysql_query("SELECT * FROM orders, addressbook, orderitem,book WHERE orders.addressbook_id=addressbook.id AND orders.id=orderitem.orders_id AND book.id=orderitem.book_id ORDER BY orders.id");
+echo "<tr><td>Order id</td><td>Customer name</td><td>Address</td><td>Books</td><td>Quantity</td><td>Commands</td></tr>";
 while ( $row = mysql_fetch_row($result) ) {
     echo "<tr><td>";
     echo(htmlentities($row[0]));
     echo("</td><td>");
-    echo(htmlentities($row[1]));
+    echo(htmlentities($row[3]).' '.htmlentities($row[4]));
     echo("</td><td>");
-    echo(htmlentities($row[2]));
+    echo((htmlentities($row[5])).' '.htmlentities($row[6]).' '.htmlentities($row[7]).' '.htmlentities($row[8]));
     echo("</td><td>");
-    echo(htmlentities($row[3]));
+    echo(htmlentities($row[15]));
     echo("</td><td>");
-    echo(htmlentities($row[4]));
-    echo("</td><td>");
-    echo(htmlentities($row[5]));
-    echo("</td><td>");
-    echo(htmlentities($row[6]));
-    echo("</td><td>");
-	echo(htmlentities($row[7]));
-    echo("</td><td>");
-    echo(htmlentities($row[8])." ". htmlentities($row[9]));
-    echo("</td><td>");
-    echo(htmlentities($row[10]));
+    echo(htmlentities($row[11]));
     echo("</td><td>\n");
     echo('<a href="admin_book_edit.php?id='.htmlentities($row[0]).'">Edit</a> / ');
     echo('<a href="admin_book_delete.php?id='.htmlentities($row[0]).'">Delete</a>');
@@ -78,7 +64,6 @@ while ( $row = mysql_fetch_row($result) ) {
 
 ?>
 		<a href="admin.php">Go back to administor's main page</a><br>
-		<a href="admin_book_add.php">Add a new book</a>
 		</div><!-- end content -->
 		</div><!-- end container -->
     </body>

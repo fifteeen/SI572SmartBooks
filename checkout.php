@@ -4,43 +4,50 @@ SESSION_START();
 
 $id_user = $_SESSION['user_id'];
 
+//whether the form has been set
 if ( isset($_POST['submit'])){
 
-if ( isset($_POST['fname'])&& isset($_POST['lname']) && isset($_POST['street']) && isset($_POST['city']) &&isset($_POST['state']) && isset($_POST['zip']) )  
+//whether the variables are set
+    if ( isset($_POST['fname'])&& isset($_POST['lname']) && isset($_POST['street']) && isset($_POST['city']) &&isset($_POST['state']) && isset($_POST['zip']) )  
      {
-   $fn = mysql_real_escape_string($_POST['fname']);
-   $ln = mysql_real_escape_string($_POST['lname']);
-   $str = mysql_real_escape_string($_POST['street']);
-   $c = mysql_real_escape_string($_POST['city']);
-   $st = mysql_real_escape_string($_POST['state']);
-   $z = mysql_real_escape_string($_POST['zip']);
-  //intert into addressbook   
-   $sql1 = "INSERT INTO addressbook (customerln, customerfn, street, city, state, zip, customer_id) 
+        $fn = mysql_real_escape_string($_POST['fname']);
+        $ln = mysql_real_escape_string($_POST['lname']);
+        $str = mysql_real_escape_string($_POST['street']);
+        $c = mysql_real_escape_string($_POST['city']);
+        $st = mysql_real_escape_string($_POST['state']);
+        $z = mysql_real_escape_string($_POST['zip']);
+
+//intert the info into addressbook   
+        $sql1 = "INSERT INTO addressbook (customerln, customerfn, street, city, state, zip, customer_id) 
               VALUES ('$fn', '$ln', '$str', '$c','$st','$z','$id_user')";
-   mysql_query($sql1);
-  }
-  else   
-   {$_SESSION['error']='Values for plays and rating should be numeric';
+        mysql_query($sql1);
+     }
+    else   
+        {$_SESSION['error']='Values for plays and rating should be numeric';
          header( 'Location: index.php' ) ;
          return;}
-  
-  if ( mysql_fetch_row(mysql_query("SELECT * from addressbook WHERE customer_id='$id_user' "))){
-  //select addressbook_id 
-   $user = mysql_result(mysql_query("SELECT id FROM addressbook where customer_id = '$id_user'"),0,'id');
-  //intert into orders 
-   mysql_query("INSERT INTO orders (addressbook_id) VALUES ('$user')");
+ 
+//if the information of the customer has been added in addressbook
+    if ( mysql_fetch_row(mysql_query("SELECT * from addressbook WHERE customer_id='$id_user' "))){
+
+//select addressbook_id 
+        $user = mysql_result(mysql_query("SELECT id FROM addressbook where customer_id = '$id_user'"),0,'id');
+//intert into orders 
+        mysql_query("INSERT INTO orders (addressbook_id) VALUES ('$user')");
    
-  //select quantity, book_id from shoppingcart 
-   $result = mysql_query("SELECT shoppingcart.quantity, shoppingcart.book_id, shoppingcart.customer_id, orders.id, addressbook.id FROM shoppingcart join orders join addressbook on shoppingcart.customer_id=addressbook.customer_id AND addressbook.id=orders.addressbook_id"); 
-  // intert into orderitem
-   while ( $row = mysql_fetch_row($result) ) {
-   if (htmlentities($row[2]) == $id_user) {
-   mysql_query("INSERT INTO orderitem (quantity, orders_id, book_id) VALUES ('$row[0]','$row[3]','$row[1]')");
-   }
-   else continue;} 
-  // delete items in shoppingcart if checked out
-     mysql_query("DELETE from shoppingcart WHERE customer_id= $id_user ");
-   return;
+//select quantity, book_id from shoppingcart 
+        $result = mysql_query("SELECT shoppingcart.quantity, shoppingcart.book_id, shoppingcart.customer_id, orders.id, addressbook.id FROM shoppingcart join orders join addressbook on shoppingcart.customer_id=addressbook.customer_id AND addressbook.id=orders.addressbook_id"); 
+
+//intert into orderitem
+        while ( $row = mysql_fetch_row($result) ) {
+            if (htmlentities($row[2]) == $id_user) {
+            mysql_query("INSERT INTO orderitem (quantity, orders_id, book_id) VALUES ('$row[0]','$row[3]','$row[1]')");
+            }
+        else continue;} 
+
+// delete items in shoppingcart if checked out
+    mysql_query("DELETE from shoppingcart WHERE customer_id= $id_user ");
+// return;
     header('Location: confirm.php');
    }
 }

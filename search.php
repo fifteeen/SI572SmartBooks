@@ -65,12 +65,7 @@ for( $i = 0; $i < $rowCount; $i = $i + 1 ) {
 #if no book matched the search terms
 if( $resultCount == 0 ) {
 	#print a message to that effect
-  print('
-	<tr>
-	  <th scope="col"><p class="style1 style6">No matches found. Please search again</p>
-	  </th>
-	</tr>
- ');
+	  $error='No matches found. Please search again.';
 } 
 
 ?>
@@ -93,9 +88,8 @@ if( $resultCount == 0 ) {
                 <li><a href="shoppingcart.php">My Shopping Cart</a></li>
                 <li><a href="logout.php">Logout</a></li>
             </ul>
-
         </div>
-        
+		<p style="color:red"><?php if (isset($error)) echo $error; ?></p>
         <div id="footer">
             <p>Copyright &copy 2012 SI572BOOKSTOREGROUP. All Rights Reserved.</p>
         </div>

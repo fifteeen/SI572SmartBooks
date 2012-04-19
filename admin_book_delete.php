@@ -9,6 +9,8 @@ if (isset($_SESSION['success']))
 {
 		unset($_SESSION['success']);
 }
+
+//prevent unauthorized access from unlogged users and non administrators
 if (!isset($_SESSION['name']))
 {
 	header ("Location:index.php");
@@ -38,11 +40,9 @@ if ($_SESSION['isAdmin']==0)
                 <li><a href="logout.php">Logout</a></li>
             </ul>
             <h1>Delete a book</h1>
-            <form method="get" action="">
-                <input type="text" id="search-text" name="s" value="" />
-                <input type="submit" id="search-submit" value="Search" />
-            </form>
 <?php
+
+//If delete is confirmed and id is given, delete the book
 if ( isset($_POST['delete']) && isset($_POST['id']) ) {
     $id = mysql_real_escape_string($_POST['id']);
     $sql = "DELETE FROM book WHERE id = $id";
@@ -51,11 +51,13 @@ if ( isset($_POST['delete']) && isset($_POST['id']) ) {
     header('Location: admin_book.php');
     return;
 }
+//If id cannot be reached, store error message and return to admin_book.php
 if ( ! isset($_GET['id']) ) {
     $_SESSION['error'] = 'Missing value for id';
     header('Location: admin_book.php');
     return;
 }
+
 $id = mysql_real_escape_string($_GET['id']);
 $result = mysql_query("SELECT * FROM book WHERE id='$id' ");
 $row = mysql_fetch_row($result);
@@ -64,7 +66,7 @@ if ( $row == FALSE ) {
     header('Location: admin_book.php');
     return;
 }
-
+//print out confirmation message
 echo "<p>Confirm: Deleting ".htmlentities($row[1])."</p>\n";
 echo('<form method="post"><input type="hidden" ');
 echo('name="id" value="'.htmlentities($row[0]).'">'."\n");
